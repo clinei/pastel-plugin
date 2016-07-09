@@ -8,7 +8,6 @@ window.input = (function closure_input() {
 		});
 	}
 
-
 	return {
 		sendMessage: _sendMessage,
 	};

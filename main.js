@@ -1,18 +1,4 @@
 "use strict";
-/*
-socket.on('message', function(message){
-	var block = window.storage.get('block');
-	if(message.style && message.style == 'chat'){
-		var user_id = window.users.getUserIdByNick(message.nick);
-		if(window.users.get(user_id).idle){
-			awakens.menu.active(user_id);
-		}
-	}
-	if (block.indexOf(message.nick) === -1) {
-		client.show(message);
-	}
-});
-*/
 
 const socket = window.io.connect("https://awakens.me/", {
 	transports: ["websocket", "polling"],
@@ -34,9 +20,7 @@ socket.on("update", window.socket_listeners.update);
 
 socket.emit("core", {
 	command: "join",
-	data: {
-		nick: `TEST::${Math.random().toString(36).substring(2, 12)}`,
-	},
+	data: window.storage.getJoinData(),
 });
 
 window.socket = socket;

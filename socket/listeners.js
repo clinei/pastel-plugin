@@ -1,11 +1,36 @@
 "use strict";
 window.socket_listeners = (function closure_socket_listeners() {
 
+	function standardizeChannelDataKey(key) {
+		switch (key) {
+		case "background":
+			return "server_background";
+		case "themecolors":
+			return "server_theme_colors";
+		default:
+			return key;
+		}
+	}
+	function addUser(user) {
+		window.users_registry.append(user.id, {
+			"active": true,
+			"id": user.id,
+			"nick": user.nick,
+		});
+	}
+
 	function _channeldata(data) {
 		console.log(data);
-		if (data.users) {
-			data.users.forEach(_joined);
-		}
+		Object.keys(data).forEach((key_) => {
+			const key = standardizeChannelDataKey(key_);
+			if (!window.storage.isKey(key)) {
+				console.log("Unknown channel data key: %s", key);
+			}
+			if (key === "users") {
+				data.users.forEach(addUser);
+			}
+			window.storage.set(key, data[key]);
+		});
 	}
 	function _game(data) {
 		console.log(data);
@@ -15,11 +40,7 @@ window.socket_listeners = (function closure_socket_listeners() {
 	}
 	function _joined(data) {
 		// "${data.nick} joined"
-		window.users_registry.append(data.id, {
-			"active": true,
-			"id": data.id,
-			"nick": data.nick,
-		});
+		addUser(data);
 	}
 	function _left(data) {
 		// "${window.users_registry.getUserNick(data.id)} has left"
