@@ -38,3 +38,12 @@ socket.emit("core", {
 		nick: `TEST::${Math.random().toString(36).substring(2, 12)}`,
 	},
 });
+
+window.socket = socket;
+
+document.querySelector("#main-window > .input-container").addEventListener("submit", (event) => {
+	event.preventDefault();
+	const value = event.target.firstElementChild.value;
+	window.input.sendMessage(value);
+	event.target.firstElementChild.value = "";
+});

@@ -16,7 +16,7 @@
 		<ol class="messages-list"></ol>
 	</div>
 	<form class="input-container">
-		<textarea wrap="off" placeholder="wake me up" class="input-bar">⎸⎷⎹⎲⎳</textarea>
+		<input type="text" inputmode="latin-prose" maxlength="9999" minlength="1" required placeholder="wake me up" class="input-bar">
 		<div id="users-container">
 			<div id="users-list" class="unaltered closed">
 				<ul id="users-active"></ul>
@@ -27,6 +27,7 @@
 	</form>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.0/socket.io.min.js"></script>
 	<script src="miniDateFormat.js"></script>
+	<script src="input.js"></script>
 	<script src="users-list.js"></script>
 	<script src="users-registry.js"></script>
 	<script src="messages-elements.js"></script>
