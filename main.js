@@ -14,16 +14,9 @@ socket.on('message', function(message){
 });
 */
 
-var socket = io.connect("https://awakens.me/", {
-	transports: ["websocket", "polling"]
+const socket = window.io.connect("https://awakens.me/", {
+	transports: ["websocket", "polling"],
 });
-
-function socketOn(event_name) {
-	return function socketOnEvent(data) {
-		console.log(event_name);
-		console.log(data);
-	}
-}
 
 socket.on("channeldata", window.socket_listeners.channeldata);
 socket.on("game", window.socket_listeners.game);
@@ -40,6 +33,8 @@ socket.on("registered", window.socket_listeners.registered);
 socket.on("update", window.socket_listeners.update);
 
 socket.emit("core", {
-	command : "join",
-	data : {},
+	command: "join",
+	data: {
+		nick: `TEST::${Math.random().toString(36).substring(2, 12)}`,
+	},
 });

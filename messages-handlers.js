@@ -1,66 +1,67 @@
-window.messages_handlers = (function closure_messages_handlers() { "use strict";
+"use strict";
+window.messages_handlers = (function closure_messages_handlers() {
 
-function _handleChatMessage(data) {
-	var container = window.messages_elements.createContainerElement(data);
+	function _handleChat(data) {
+		const container = window.messages_elements.createContainer(data);
 
-	var date = window.messages_elements.createDateElement(data);
-	var nick = window.messages_elements.createNickElement(data);
-	var message = window.messages_elements.createMessageElement(data);
+		const date = window.messages_elements.createDate(data);
+		const nick = window.messages_elements.createNick(data);
+		const message = window.messages_elements.createMessage(data);
 
-	container.appendChild(date);
-	container.appendChild(nick);
-	container.appendChild(message);
+		container.appendChild(date);
+		container.appendChild(nick);
+		container.appendChild(message);
 
-	window.messages_elements.appendToWindow(container);
-}
-function _handlePersonalWindowMessage(data) {
-	var container = window.messages_elements.createContainerElement(data);
+		window.messages_elements.appendToWindow(container);
+	}
+	function _handlePersonalWindow(data) {
+		const container = window.messages_elements.createContainer(data);
 
-	var date = window.messages_elements.createDateElement(data);
-	var nick = window.messages_elements.createNickElement(data);
-	var message = window.messages_elements.createMessageElement(data);
+		const date = window.messages_elements.createDate(data);
+		const nick = window.messages_elements.createNick(data);
+		const message = window.messages_elements.createMessage(data);
 
-	container.appendChild(date);
-	container.appendChild(nick);
-	container.appendChild(message);
+		container.appendChild(date);
+		container.appendChild(nick);
+		container.appendChild(message);
 
-	window.messages_elements.appendToWindow(container);
-}
-function _handlePersonalMessage(data) {
-	var container = window.messages_elements.createContainerElement(data);
+		window.messages_elements.appendToWindow(container);
+	}
+	function _handlePersonal(data) {
+		const container = window.messages_elements.createContainer(data);
 
-	var date = window.messages_elements.createDateElement(data);
-	var nick = window.messages_elements.createNickElement(data);
-	var message = window.messages_elements.createMessageElement(data);
+		const date = window.messages_elements.createDate(data);
+		const nick = window.messages_elements.createNick(data);
+		const message = window.messages_elements.createMessage(data);
 
-	container.appendChild(date);
-	container.appendChild(nick);
-	container.appendChild(message);
+		container.appendChild(date);
+		container.appendChild(nick);
+		container.appendChild(message);
 
-	window.messages_elements.appendToWindow(container);
-}
-function _handleGenericMessage(data) {
-	var container = window.messages_elements.createContainerElement(data);
+		window.messages_elements.appendToWindow(container);
+	}
+	function _handleGeneric(data) {
+		const container = window.messages_elements.createContainer(data);
 
-	var date = window.messages_elements.createDateElement(data);
-	var message = window.messages_elements.createMessageElement(data);
+		const date = window.messages_elements.createDate(data);
+		const message = window.messages_elements.createMessage(data);
 
-	container.appendChild(date);
-	container.appendChild(message);
+		container.appendChild(date);
+		container.appendChild(message);
 
-	window.messages_elements.appendToWindow(container);
-}
-function _handleUnknownMessage(data) {
-	console.log(data);
-}
+		window.messages_elements.appendToWindow(container);
+	}
+	function _handleUnknown(data) {
+		console.log(data);
+	}
 
-return {
-	handleChatMessage: _handleChatMessage,
-	handlePersonalWindowMessage: _handlePersonalWindowMessage,
-	handlePersonalMessage: _handlePersonalMessage,
-	handleGenericMessage: _handleGenericMessage,
-	handleUnknownMessage: _handleUnknownMessage,
-};
+	return {
+		handleChat: _handleChat,
+		handlePersonalWindow: _handlePersonalWindow,
+		handlePersonal: _handlePersonal,
+		handleGeneric: _handleGeneric,
+		handleUnknown: _handleUnknown,
+	};
 
 
 }());

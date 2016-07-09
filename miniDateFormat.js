@@ -1,19 +1,19 @@
-function miniDateFormat(foobar) {
-	var date = new Date();
-	
-	var hours = date.getHours();
-	var minutes = date.getMinutes();
-	var seconds = date.getSeconds();
+"use strict";
+window.miniDateFormat = function miniDateFormat(foobar) {
+	const date = new Date();
+
+	const hours = date.getHours();
+	const minutes = date.getMinutes();
+	const seconds = date.getSeconds();
 
 	if (foobar) {
-		seconds = (hours +11) %12 +1;
 		return [
-			seconds,
+			(hours +11) %12 +1,
 			":",
 			minutes < 10 ? "0" : "",
 			minutes,
 			" ",
-			hours < 12 ? "am" : "pm"
+			hours < 12 ? "am" : "pm",
 		].join("");
 	} else {
 		return [
@@ -24,7 +24,7 @@ function miniDateFormat(foobar) {
 			minutes,
 			":",
 			seconds < 10 ? "0" : "",
-			seconds
+			seconds,
 		].join("");
 	}
-}
+};

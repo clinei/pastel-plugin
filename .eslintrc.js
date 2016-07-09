@@ -1,3 +1,4 @@
+/* eslint-env node */
 "use strict";
 const off = 0;
 const warn = 1;
@@ -16,7 +17,7 @@ module.exports = {
 	},
 	"env": {
 		"es6": true,
-		"node": true,
+		"browser": true,
 	},
 	"extends": "eslint:recommended",
 	"rules": {
@@ -190,7 +191,13 @@ module.exports = {
 		"no-undef-init": error,
 		"no-undefined": error,
 		"no-unused-vars": error,
-		"no-use-before-define": error,
+		"no-use-before-define": [
+			error,
+			{
+				"functions": false,
+				"classes": false,
+			},
+		],
 
 		// Node.js and CommonJS
 		"callback-return": warn,
