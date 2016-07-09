@@ -16,8 +16,7 @@ ul, ol {
 	flex-direction: column;
 	overflow: hidden;
 
-	font-family: 'Droid Sans', 'Code2002', 'Code2001', 'Code2000', 'Noto Sans', sans-serif;
-/* testing shit */
+	font-family: 'Droid Sans', 'Noto Sans', sans-serif;
 	background-image: url('background.svg');
 	background-position: center;
 	background-size: auto 60%;
@@ -30,34 +29,9 @@ ul, ol {
 
 .chat-window > .messages-container {
 	flex-grow: 1;
-	overflow-x: hidden;
-	overflow-y: scroll;
-
-	width: 100%;
 }
 .chat-window > .input-container {
 	flex-shrink: 0;
-
-	width: 100%;
-	height: 38px;
-
-	background-color: #888888;
-}
-.chat-window > .input-container > .input-bar {
-	margin: 5px;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #080808;
-	border-radius: 5px;
-	padding: 4px;
-	height: 18px;
-
-	overflow-x: hidden;
-	resize: none;
-	font-size: 14px;
-	background: #303030;
-	color: white;
-	/* box-shadow: rgba(255, 255, 255, 0.1) 0 1px 0, rgba(0, 0, 0, 0.8) 0 1px 7px 0px inset; */
 }
 
 #main-window > .input-container {

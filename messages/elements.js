@@ -92,6 +92,10 @@ window.messages_elements = (function closure_messages_elements() {
 			.firstElementChild
 			.firstElementChild
 			.appendChild(foobar);
+		foobar.scrollIntoView({
+			"behavior": "smooth",
+			"block": "end",
+		});
 	}
 
 

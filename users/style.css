@@ -45,8 +45,8 @@
 	box-shadow: none;
 }
 #users-toggle:active {
-	box-shadow: inset 3px 2px #080808;
-	padding: 2px 0px 0px 3px;
+	box-shadow: inset 3px 3px #080808;
+	padding: 3px 0px 0px 3px;
 }
 
 .opened + #users-toggle {

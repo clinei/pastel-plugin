@@ -1,4 +1,9 @@
 .messages-container {
+	overflow-x: hidden;
+	overflow-y: scroll;
+
+	width: 100%;
+
 	color: white;
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 /*
@@ -9,5 +14,5 @@
 }
 
 .nick {
-	color: #6060C0; 
+	color: #9090D0; 
 }
