@@ -1,0 +1,59 @@
+#users-list {
+	overflow-y: hidden;
+
+	position: fixed;
+	right: 2px;
+	border-style: solid;
+	border-color: #202020;
+	border-radius: 5px;
+	min-width: 180px;
+
+	background-color: #181818;
+
+	transition-duration: 500ms;
+	transition-timing-function: linear;
+}
+#users-list.unaltered {
+	top: 100%;
+	bottom: auto;
+	height: auto;
+	transition-property: none;
+	border-width: 0px 4px;
+	padding: 0px 10px;
+}
+
+#users-active {
+	color: #F0F0F0;
+}
+#users-absent {
+	color: #F00000;
+}
+
+#users-toggle {
+	flex-shrink: 0;
+
+	margin: 5px 5px 5px 2px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-radius: 50%;
+	padding: 0px;
+	width: 28px;
+	height: 28px;
+
+	text-align: center;
+	box-shadow: none;
+}
+#users-toggle:active {
+	box-shadow: inset 3px 2px #080808;
+	padding: 2px 0px 0px 3px;
+}
+
+.opened + #users-toggle {
+	background: #F0C850;
+}
+.closed + #users-toggle {
+	background: #686868;
+}
+
+/* box-shadow */
