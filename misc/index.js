@@ -1,4 +1,6 @@
 "use strict";
+const util = require("./util.js");
+
 function miniDateFormat(foobar) {
 	const date = new Date();
 
@@ -31,4 +33,5 @@ function miniDateFormat(foobar) {
 
 module.exports = {
 	miniDateFormat: miniDateFormat,
+	util: util,
 };

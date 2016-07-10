@@ -1,5 +1,6 @@
 "use strict";
 const misc = require("../misc");
+const output = require("../output");
 
 function appendTextContent(node, text) {
 	node.appendChild(document.createTextNode(text));
@@ -66,6 +67,7 @@ function _createMessage(data) {
 	case "personal-window":
 	case "personal":
 		appendTextContent(element, data.message);
+		element.innerHTML = output.compiled.message(element.innerText);
 		break;
 	case "error":
 	case "general":
