@@ -1,7 +1,7 @@
 /* eslint-env es6, node */
 "use strict";
 const webpack = require("webpack");
-module.exports = {
+webpack({
 	context: __dirname,
 	entry: "./index.js",
 	devtool: "#source-map",
@@ -37,4 +37,10 @@ module.exports = {
 			output: {ascii_only: true},
 		}),
 	],
-};
+}).run((error, stats) => {
+	if (error === null) {
+		console.log(stats.toString({colors: true}));
+	} else {
+		console.warn(error);
+	}
+});
