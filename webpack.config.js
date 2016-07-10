@@ -4,7 +4,7 @@ const webpack = require("webpack");
 module.exports = {
 	context: __dirname,
 	entry: "./index.js",
-	devtool: "#cheap-module-source-map",
+	devtool: "#source-map",
 	output: {
 		filename: "./bundle.js",
 		sourceMapFilename: "[file].map",
@@ -34,7 +34,6 @@ module.exports = {
 		new webpack.optimize.UglifyJsPlugin({
 			include: /js$/,
 			exclude: "node_modules",
-			mangle: {except: []},
 			output: {ascii_only: true},
 		}),
 	],

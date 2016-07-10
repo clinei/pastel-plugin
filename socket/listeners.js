@@ -22,7 +22,6 @@ function addUser(user) {
 }
 
 function _channeldata(data) {
-	console.log(data);
 	Object.keys(data).forEach((key_) => {
 		const key = standardizeChannelDataKey(key_);
 		if (!storage.isKey(key)) {
@@ -75,7 +74,7 @@ function _registered(data) {
 	console.log(data);
 }
 function _update(data) {
-	console.log(data);
+	_channeldata(data);
 }
 
 module.exports = {
