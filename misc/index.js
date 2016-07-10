@@ -1,5 +1,5 @@
 "use strict";
-window.miniDateFormat = function miniDateFormat(foobar) {
+function miniDateFormat(foobar) {
 	const date = new Date();
 
 	const hours = date.getHours();
@@ -27,4 +27,8 @@ window.miniDateFormat = function miniDateFormat(foobar) {
 			seconds,
 		].join("");
 	}
+}
+
+module.exports = {
+	miniDateFormat: miniDateFormat,
 };

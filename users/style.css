@@ -50,7 +50,7 @@
 }
 
 .opened + #users-toggle {
-	background: #F0C850;
+	background: #F0C050;
 }
 .closed + #users-toggle {
 	background: #686868;
