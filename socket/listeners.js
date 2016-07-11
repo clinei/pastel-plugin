@@ -24,13 +24,13 @@ function addUser(user) {
 function _channeldata(data) {
 	Object.keys(data).forEach((key_) => {
 		const key = standardizeChannelDataKey(key_);
-		if (!storage.isKey(key)) {
+		if (!storage.compiled.isKey(key)) {
 			console.log("Unknown channel data key: %s", key);
 		}
 		if (key === "users") {
 			data.users.forEach(addUser);
 		}
-		storage.set(key, data[key]);
+		storage.compiled.set(key, data[key]);
 	});
 }
 function _game(data) {

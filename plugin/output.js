@@ -11,6 +11,18 @@ class RandomColorWrap {
 	}
 }
 
+class FormatParser {
+	constructor() {
+		this.message = this.message;
+	}
+	message(received) {
+		const parentParsed = this.parent.message(received);
+
+		return parentParsed;
+	}
+}
+
 module.exports = {
 	RandomColorWrap: RandomColorWrap,
+	FormatParser: FormatParser,
 };

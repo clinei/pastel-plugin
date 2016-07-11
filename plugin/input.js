@@ -27,7 +27,7 @@ class Pastel {
 		const context = this.pastel.context;
 		const saturation = this.pastel.saturation;
 		const lightness = this.pastel.lightness;
-		const nick = storage.get("nick");
+		const nick = storage.compiled.get("nick");
 		const base = Math.random() *360;
 		const mult = Math.random() *20 +(Math.random() > 0.5 ? 20 : 320);
 

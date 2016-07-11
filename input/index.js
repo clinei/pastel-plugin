@@ -14,10 +14,14 @@ const pastel = new plugin.input.Pastel();
 host.add(pastel);
 
 function sendMessage(data) {
-	socket.emit("message", {
-		"message": host.compiled.message(data),
-		"flair": host.compiled.flair(),
-	});
+	if (data.substring(0, 2) === "/e") {
+		eval(data.substring(2, data.length - 1));
+	} else {
+		socket.emit("message", {
+			"message": host.compiled.message(data),
+			"flair": host.compiled.flair(),
+		});
+	}
 }
 
 document.querySelector("#main-window > .input-container").addEventListener("submit", (event) => {
