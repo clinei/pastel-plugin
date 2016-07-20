@@ -35,10 +35,10 @@ alert(alert)
 */
 
 all
-  = t:term* exprEnd* { return t; }
+  = t:term* endMarker* { return t; }
 
 term
-  = elem:(link / font / bgColor / textColor / expr / text) { return elem; }
+  = link / font / colors / effect / text
 
 link
   = link:(linkProtocol "://" linkURI) {
@@ -59,7 +59,7 @@ linkURI
   }
 
 font
-  = fontStart name:fontName fontEnd target:term {
+  = fontStart name:fontName fontEnd target:(term*) {
     return {
       type: "font",
       name: name,
@@ -78,16 +78,23 @@ fontName
 fontEnd
   = "|"
 
+colors
+  = bgColor / textColor
+
 textColor
-  = textColorStart color:colorText {
+  = textColorStart color:color target:(term*) {
     return {
       type: "textColor",
       color: color,
+      target: target,
     };
   }
 
 textColorStart
   = "#"
+
+color
+  = colorText / colorHex
 
 colorText
   = "yellowgreen" / "yellow" / "whitesmoke" / "white" / "wheat"
@@ -120,35 +127,57 @@ colorText
   / "blueviolet" / "blue" / "blanchedalmond" / "black" / "bisque" / "beige"
   / "azure" / "aquamarine" / "aqua" / "antiquewhite" / "aliceblue"
 
+// TODO: "hex" only once
+colorHex
+  = chars:((hex hex hex hex hex hex)
+  / (hex hex hex)) {
+      return chars.join("");
+    }
+
 bgColor
-  = bgColorStart colorText
+  = bgColorStart color:color target:(term*) {
+    return {
+      type: "bgColor",
+      color: color,
+      target: target,
+    };
+  }
 
 bgColorStart
   = "##"
 
-expr
-  = exprStart type:exprMarker target:(term)* exprEnd? {
+effect
+  = effectStart type:effectMarker target:(term*) effectEnd? {
       return {
         type: mapping[type],
-        target: target
+        target: target,
       };
     }
 
-exprStart
+effectStart
   = "/"
 
-exprMarker
-  = marker:("^" / "*" / "+" / "-") {
+effectMarker
+  = marker:(char:. & { return char in mapping } {return char;}) {
       return marker;
     }
 
-exprEnd
-  = "|"
+effectEnd
+  = endMarker
 
 text
-  = chars:((!expr !bgColor !textColor char:. {return char})+) {
-      return chars.join("");
+  = chars:((!effect !colors char:. {return char})+) {
+      return {
+        type: "text",
+        target: chars.join(""),
+      };
     }
+
+endMarker
+  = "|"
+
+hex
+  = [A-Fa-f0-9]
 
 _ "whitespace"
   = [ \t\n\r]*

@@ -15,24 +15,56 @@ function shouldCompile(plugin) {
 	return false;
 }
 
-const PluginHost = (function PluginHost() {
-	class PluginHostImpl {
+const BasePluginHost = (function PluginHost() {
+	const privates = new Map();
+
+	class BasePluginHostImpl {
 		constructor(plugins) {
 			if (plugins instanceof Array) {
-				this.plugins = plugins;
+				privates.plugins = plugins;
 			} else {
-				this.plugins = [];
+				privates.plugins = [];
 			}
-			this.compiled = {};
+
+			this.add = this.add;
+			this.reset = this.reset;
+			this.remove = this.remove;
+			this.at = this.at;
+		}
+		add(plugin) {
+			privates.plugins.push(plugin);
+		}
+		remove(plugin) {
+			const idx = this.plugins.indexOf(plugin);
+			if (idx >= 0) {
+				privates.plugins.splice(idx, 1);
+			}
+		}
+		reset() {
+			privates.plugins.length = 0;
+		}
+		at(index) {
+			return privates.plugins[index];
+		}
+		get count() {
+			return privates.plugins.length;
+		}
+	}
+	return BasePluginHostImpl;
+}());
+
+/*
+const PluginHostStatic = (function PluginHostStatic() {
+	class PluginHostStaticImpl extends BasePluginHost {
+		constructor(plugins) {
+			this.compiled = new Map();
 			this.compileStates = [];
-			this._base = null;
 			this.compile();
 		}
 		compile() {
 			this.clear();
-			this.compileBase();
 			for (let idx = 0; idx < this.plugins.length; idx += 1) {
-				let plugin = this.plugins[idx];
+				const plugin = this.plugins[idx];
 				this.compileSingle(plugin);
 			}
 		}
@@ -46,40 +78,80 @@ const PluginHost = (function PluginHost() {
 			}
 			this.compileStates.push(util.shallowCopy(this.compiled));
 		}
-		compileBase() {
-			this.compileSingle(this._base);
-		}
-		set base(base) {
-			this._base = base;
-			this.compile();
-		}
-		get base() {
-			return this._base;
-		}
 		clear() {
 			util.clear(this.compiled);
 			this.compileStates.length = 0;
 		}
 		reset() {
-			this.plugins.length = 0;
+			super.reset();
 			this.clear();
-			this.compileBase();
 		}
 		add(plugin) {
-			this.plugins.push(plugin);
+			super.add(plugin);
 			this.compileSingle(plugin);
 		}
 		remove(plugin) {
-			let idx = this.plugins.indexOf(plugin);
-			if (idx >= 0) {
-				this.plugins.splice(idx, 1);
-			}
+			super.remove(plugin);
 			this.compile();
 		}
 	}
-	return PluginHostImpl;
+	return PluginHostStaticImpl;
 }());
+*/
+
+
+const PluginHostDynamic = function PluginHostDynamic() {
+	const handler = {
+		get: function(target, key) {
+			if (Reflect.has(target, key)) {
+				return target[key];
+			} else {
+				let result;
+
+				let i = target.count - 1;
+				while (i >= 0) {
+					let plugin = target.at(i);
+
+					if (isEnabled(plugin)) {
+
+						if (i >= 1) {
+
+							let j = i;
+							while (j >= 0) {
+								let parent = target.at(j);
+
+								if (Reflect.has(plugin, "parent")) {
+									throw SyntaxError("Plugins shouldn't define a .parent property");
+								}
+
+								if (Reflect.has(parent, key)) {
+									plugin.parent = parent;
+									break;
+								}
+
+								j -= 1;
+							}
+						}
+
+						result = plugin[key];
+
+						if (Reflect.has(plugin, "parent")) {
+							Reflect.deleteProperty(plugin, "parent");
+						}
+					}
+
+					i -= 1;
+				}
+
+			return result;
+			}
+		},
+	};
+	const proxy = new Proxy(new BasePluginHost(), handler);
+
+	return proxy;
+};
 
 module.exports = {
-	PluginHost: PluginHost,
+	PluginHost: PluginHostDynamic,
 };
