@@ -2,7 +2,7 @@
 "use strict";
 const off = 0;
 const warn = 1;
-const error = 2;
+const error = 1; // 2
 
 module.exports = {
 	"parserOptions": {
