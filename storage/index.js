@@ -170,5 +170,6 @@ host.add(storagePlugin);
 
 const nickGen = new NickGen();
 host.add(nickGen);
+host.compile();
 
 module.exports = host;

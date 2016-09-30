@@ -53,18 +53,19 @@ const BasePluginHost = (function PluginHost() {
 	return BasePluginHostImpl;
 }());
 
-/*
+
 const PluginHostStatic = (function PluginHostStatic() {
 	class PluginHostStaticImpl extends BasePluginHost {
 		constructor(plugins) {
+			super();
 			this.compiled = new Map();
 			this.compileStates = [];
 			this.compile();
 		}
 		compile() {
 			this.clear();
-			for (let idx = 0; idx < this.plugins.length; idx += 1) {
-				const plugin = this.plugins[idx];
+			for (let idx = 0; idx < this.count; idx += 1) {
+				const plugin = this.at(idx);
 				this.compileSingle(plugin);
 			}
 		}
@@ -97,7 +98,6 @@ const PluginHostStatic = (function PluginHostStatic() {
 	}
 	return PluginHostStaticImpl;
 }());
-*/
 
 
 const PluginHostDynamic = function PluginHostDynamic() {
@@ -153,5 +153,5 @@ const PluginHostDynamic = function PluginHostDynamic() {
 };
 
 module.exports = {
-	PluginHost: PluginHostDynamic,
+	PluginHost: PluginHostStatic,
 };
